@@ -1,0 +1,71 @@
+version: "3.7"
+
+services:
+  
+  https-portal:
+    image: steveltn/https-portal:1.5
+    container_name: Homepage_SSLProxy
+    ports:  # Syntax: 'HOST:CONTAINER'
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./volumes/ssl_certs:/var/lib/https-portal
+    links:  # Syntax: service:hostname
+      - wordpress
+    restart: unless-stopped
+    env_file:
+      - ./env/https-portal.dev.env
+    networks:
+      example-network:
+        ipv4_address: 172.23.2.10
+
+  wordpress:
+    image: wordpress
+    container_name: Homepage_wordpress
+    links:
+      - database:db
+    ports:
+      - 8080:80
+    volumes:
+      #- ./services/wordpress/fstheme:/var/www/html/wp-content/themes/fstheme
+      - ./services/wordpress/wp-config-sample.php:/usr/src/wordpress/wp-config-sample.php
+    restart: unless-stopped
+    env_file:
+      - ./env/wordpress.env
+    secrets:
+      - db_password
+    networks:
+      example-network:
+        ipv4_address: 172.23.2.20
+
+  database:
+    image: mariadb
+    container_name: Homepage_Database
+    volumes:
+      - /var/lib/mysql
+      #- ./services/database/database_schema.sql:/tmp/database_schema.sql
+      #- ./services/database/database_data.sql:/tmp/database_data.sql
+      #- ./services/database/database_init.sh:/docker-entrypoint-initdb.d/database_init.sh
+    env_file:
+      - ./env/database.env
+    secrets:
+       - db_root_password
+       - db_password
+    networks:
+      example-network:
+        ipv4_address: 172.23.2.30
+    
+
+secrets:
+   db_password:
+     file: ./secrets/db_password
+   db_root_password:
+     file: ./secrets/db_root_password
+
+networks:
+  example-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.23.2.0/24
