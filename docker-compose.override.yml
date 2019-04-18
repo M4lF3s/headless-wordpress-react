@@ -12,6 +12,7 @@ services:
       - ./volumes/ssl_certs:/var/lib/https-portal
     links:  # Syntax: service:hostname
       - wordpress
+      - client
     restart: unless-stopped
     env_file:
       - ./env/https-portal.dev.env
@@ -24,8 +25,8 @@ services:
     container_name: Homepage_wordpress
     links:
       - database:db
-    ports:
-      - 8080:80
+    #ports:
+    #  - 8080:80
     volumes:
       - ./services/wordpress/wptheme:/var/www/html/wp-content/themes/wptheme
     restart: unless-stopped
@@ -63,6 +64,17 @@ services:
     networks:
       example-network:
         ipv4_address: 172.23.2.40
+
+
+  client:
+    image: node:latest
+    container_name: Homepage_client
+    volumes:
+      - ./services/client:/opt/client
+    command: bash -c "cd /opt/client && yarn && yarn dev dev"
+    networks:
+      example-network:
+        ipv4_address: 172.23.2.50
     
 
 secrets:
