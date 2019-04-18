@@ -14,3 +14,7 @@ remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0); // remove the next a
 remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
 remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
 
+add_action( 'init', function() {
+    global $wp_rewrite;
+    $wp_rewrite->set_permalink_structure( '/%postname%/' );
+} );
