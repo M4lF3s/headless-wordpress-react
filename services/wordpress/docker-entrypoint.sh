@@ -10,7 +10,8 @@ echo
 wp core config --path=/usr/src/wordpress --skip-check --dbname=$WORDPRESS_DB_NAME --dbuser=$WORDPRESS_DB_USER --dbpass=$(cat /run/secrets/db_password) --dbhost=db --allow-root --extra-php <<PHP
 define('FORCE_SSL_LOGIN', true);
 define('FORCE_SSL_ADMIN', true);
-\$_SERVER['HTTPS'] = 'on';
+if (strpos(\$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false)
+       \$_SERVER['HTTPS']='on';
 PHP
 echo
 echo 'Done.'
@@ -25,6 +26,7 @@ echo
 cp -r /usr/src/wordpress/* /var/www/html
 cat > /var/www/html/.htaccess <<-'EOF'
 				# BEGIN WordPress
+				SetEnvIf X-Forwarded-Proto https HTTPS
 				<IfModule mod_rewrite.c>
 				RewriteEngine On
 				RewriteBase /

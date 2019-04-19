@@ -72,6 +72,8 @@ services:
     volumes:
       - ./services/client:/opt/client
     command: bash -c "cd /opt/client && yarn && yarn dev dev"
+    links:
+      - wordpress
     networks:
       example-network:
         ipv4_address: 172.23.2.50

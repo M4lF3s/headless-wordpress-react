@@ -1,9 +1,9 @@
-import React from 'react'
-import Link from 'next/link'
+import Navigation from '../components/Navigation'
+import { Fragment } from 'react'
 
 export default () => (
-  <ul>
-    <li><Link href='/a' as='/a'><a>a</a></Link></li>
-    <li><Link href='/b' as='/b'><a>b</a></Link></li>
-  </ul>
+  <Fragment>
+      <Navigation/>
+      <h1>Your new server-side rendered React.js app!</h1>
+  </Fragment>
 )
