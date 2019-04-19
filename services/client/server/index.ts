@@ -14,7 +14,7 @@ const handler = routes.getRequestHandler( app );
 const proxyMiddleware = require('http-proxy-middleware')
 const devProxy = {
   '/api': {
-    target: 'http://wordpress/wp-json/wp/v2/',
+    target: 'http://wordpress/wp-json/',
     pathRewrite: { '^/api': '/' },
     changeOrigin: true
   }

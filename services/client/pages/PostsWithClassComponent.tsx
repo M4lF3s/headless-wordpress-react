@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import Navigation from '../components/Navigation'
+import wpapi from 'wpapi';
 
 export default class extends Component<{}, {posts}> {
     constructor(props) {
@@ -10,7 +11,7 @@ export default class extends Component<{}, {posts}> {
 
 
   async componentDidMount () {
-    const response = await axios.get( '/api/posts')
+    const response = await axios.get(wpapi({endpoint: '/api'}).posts())
     this.setState({posts: response.data});
 }
 
