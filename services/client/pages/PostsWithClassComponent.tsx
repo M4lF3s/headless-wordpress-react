@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import Navigation from '../components/Navigation'
 import wpapi from 'wpapi';
+import Link from 'next/link'
 
 export default class extends Component<{}, {posts}> {
     constructor(props) {
@@ -22,13 +23,15 @@ export default class extends Component<{}, {posts}> {
         <Navigation/>
         <h1>Our Posts Page!</h1>
         <ul>
-          {
-            p.map( post => {
-              return (
-                <li key={ post.id }>{ post.title.rendered }</li>
-              )
-            })
-          }
+          {this.state.posts.map(post => (
+            <li key={ post.id }>
+            <Link href={ `/posts/${ post.slug }` }>
+                <a href={ `/posts/${ post.slug }` }>
+                    { post.title.rendered }
+                </a>
+            </Link>
+        </li>
+          ))}
         </ul>
       </Fragment>
     )

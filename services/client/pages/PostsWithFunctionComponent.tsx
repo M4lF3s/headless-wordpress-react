@@ -20,6 +20,7 @@ export default () => {
       return (
         <Fragment>
         <Navigation />
+        <h1>Our Posts Page!</h1>
         <ul>
           {data.posts.map(post => (
             <li key={ post.id }>
