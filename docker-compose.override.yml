@@ -71,7 +71,8 @@ services:
     container_name: Homepage_client
     volumes:
       - ./services/client:/opt/client
-    command: bash -c "cd /opt/client && yarn && yarn dev dev"
+    working_dir: /opt/client
+    command: bash -c "yarn && yarn dev dev"
     links:
       - wordpress
     networks:
