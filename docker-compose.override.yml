@@ -21,7 +21,9 @@ services:
         ipv4_address: 172.23.2.10
 
   wordpress:
-    build: ./services/wordpress
+    build:
+      context: ./services/wordpress
+      target: dev
     container_name: Homepage_wordpress
     links:
       - database:db
