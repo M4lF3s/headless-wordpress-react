@@ -2,8 +2,7 @@ FROM node:latest as dev
 
 WORKDIR /usr/src
 
-CMD ["npm", "run", "dev"]
-
+CMD npm install && npm run dev
 
 FROM dev as build
 
