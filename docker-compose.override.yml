@@ -69,12 +69,12 @@ services:
 
 
   client:
-    image: node:latest
+    build:
+      context: ./services/client
+      target: dev
     container_name: Homepage_client
     volumes:
-      - ./services/client:/opt/client
-    working_dir: /opt/client
-    command: bash -c "yarn && yarn dev dev"
+      - ./services/client/src:/usr/src/
     links:
       - wordpress
     networks:
