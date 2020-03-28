@@ -58,8 +58,8 @@ server {
 
     <% if ENV['WORDPRESS_URL'] %>
 
-    location ~* /(wp-admin|wp-login.php|wp-includes|wp-content)$ {
-        proxy_pass http://<%= ENV['WORDPRESS_URL'] %>/wp-admin;
+    location ~* /(wp-admin|wp-login.php|wp-includes|wp-content).*$ {
+        proxy_pass http://<%= ENV['WORDPRESS_URL'] %>;
 
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
