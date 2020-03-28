@@ -2,8 +2,8 @@ version: "3.7"
 
 services:
   
-  https-portal:
-    image: steveltn/https-portal:1.5
+  proxy:
+    build: ./services/proxy
     container_name: Homepage_SSLProxy
     ports:  # Syntax: 'HOST:CONTAINER'
       - '80:80'
