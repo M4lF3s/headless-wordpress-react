@@ -1,8 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
+import classes from './style.module.scss'
 
 export default () => (
-    <ul>
+    <ul className={`${classes.navList}`}>
         <li><Link href="/"><a title="Home Page">Home</a></Link></li>
         <li><Link href="/wp-admin"><a title="Wordpress Login">Admin</a></Link></li>
         <li><Link href="/PostsWithClassComponent"><a title="Class Component Page">Posts (with a Class Component)</a></Link></li>
