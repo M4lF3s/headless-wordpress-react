@@ -11,6 +11,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "browserslist": [
+    ">0.3%",
+    "not ie 11",
+    "not dead",
+    "not op_mini all"
+  ],
   "dependencies": {
     "axios": "^0.19.2",
     "next": "^9.3.2",
@@ -23,7 +29,10 @@
     "@types/node": "^13.9.5",
     "@types/react": "^16.9.26",
     "@zeit/next-sass": "^1.0.1",
+    "autoprefixer": "^9.7.5",
     "node-sass": "^4.13.1",
+    "postcss-flexbugs-fixes": "^4.2.0",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typescript": "^3.8.3"
   }
 }

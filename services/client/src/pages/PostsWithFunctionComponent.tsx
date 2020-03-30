@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import Link from 'next/link'
 import wpapi from 'wpapi';
-import Navigation from '../components/navigation';
+import Navigation from '~/components/navigation';
 import useSWR from 'swr';
 import Error from 'next/error';
 

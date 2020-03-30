@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
-import Navigation from '../components/navigation'
+import Navigation from '~/components/navigation'
 import wpapi from 'wpapi';
 import Link from 'next/link'
 

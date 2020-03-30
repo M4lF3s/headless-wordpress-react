@@ -1,4 +1,4 @@
-import Navigation from '../components/navigation'
+import Navigation from '~/components/navigation'
 import { Fragment } from 'react'
 import Head from 'next/head'
 
