@@ -3,13 +3,22 @@ import axios from 'axios';
 import Link from 'next/link'
 import wpapi from 'wpapi';
 import Navigation from '../components/Navigation';
+import useSWR from 'swr';
+import Error from 'next/error';
 
 export default () => {
-    const [data, setData] = useState({ posts: [] });
 
+    const { data, error } = useSWR('/api', async (url) => {
+        if (error) console.error(error);
+        return await axios.get(wpapi({endpoint: url}).posts()).then(r => r.data);
+    });
+
+    /* The useState + useEffect Hooks can be used as an alternative to the swr Hook
+
+    const [data, setData] = useState({ posts: Array<wordpress.Post>() });
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get(wpapi({endpoint: 'https://example.com/api'}).posts())
+            const result = await axios.get(wpapi({endpoint: '/api'}).posts());
 
             setData({posts: result.data});
         };
@@ -17,21 +26,31 @@ export default () => {
         fetchData();
     }, []);
 
-    return (
+    */
+
+    if (error) {
+        console.error(error);
+        return <Error statusCode={error.response.status} />
+    } else return (
         <Fragment>
             <Navigation />
             <h1>Our Posts Page!</h1>
-            <ul>
-                {data.posts.map(post => (
-                    <li key={ post.id }>
-                        <Link href={ `/posts/${ post.slug }` }>
-                            <a href={ `/posts/${ post.slug }` }>
-                                { post.title.rendered }
-                            </a>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+            {!data &&
+                <p>Loading...</p>
+            }
+            {data &&
+                <ul>
+                    {data.map((post : wordpress.Post) => (
+                        <li key={ post.id }>
+                            <Link href="/p/[id]" as={ `/p/${ post.id }` }>
+                                <a>
+                                    { post.title.rendered }
+                                </a>
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            }
         </Fragment>
     );
 
